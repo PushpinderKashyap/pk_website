@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Binary Search Algorithm</title>
+    <title>Binary Search Algorithm Explained with Examples | Pushpinder</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <style>
+<meta name="description" content="Learn Binary Search algorithm with step-by-step explanation, examples, time complexity, and visual representation for beginners." />
+   <meta name="keywords" content="binary search, binary search algorithm, binary search in python, data structures, searching algorithms" />
+   <style>
         body {
             font-family: "Segoe UI", sans-serif;
             background-color: #f7f9fc;
@@ -125,6 +126,23 @@
   font-weight: bold;
   cursor: pointer;
 }
+.reference-list {
+  padding-left: 20px;
+}
+
+.reference-list li {
+  margin-bottom: 8px;
+}
+
+.reference-list a {
+  color: #4f46e5;
+  text-decoration: none;
+}
+
+.reference-list a:hover {
+  text-decoration: underline;
+}
+
 </style>
 </head>
 <body>
@@ -141,7 +159,8 @@
 
     <h2>Prerequisites for Binary Search</h2>
     <ul>
-        <li>The dataset must be sorted either in ascending or descending order.</li>
+        <li>For binary search to work correctly, the input data must be sorted.</li>
+         <p>Typically, the array is sorted in ascending order. Binary search can also be applied to a descendingly sorted array, but in that case, the comparison logic must be reversed. If the sorting order is not handled properly, the algorithm may return incorrect results </p>
         <li>The data structure should support O(1) access to elements.</li>
         <li>The data structure should allow for comparison.</li>
     </ul>
@@ -188,7 +207,7 @@
 
     <h2>Binary Search Algorithm</h2>
     <div style="overflow: auto;">
-    <img src="{{ url_for('static', filename='Images/BinarySearchAlgoReprentation.png') }}">
+    <img src="{{ url_for('static', filename='Images/BinarySearchAlgoReprentation.png') }}" alt="Step by step visualization of binary search algorithm">
     </div>
 
     <div class="box">
@@ -217,7 +236,7 @@
        or the search space is empty.
     </p>
     <div style="overflow: auto;text-align: center;">
-    <img src="{{ url_for('static', filename='Images/IterativeBinarySearch.png') }}">
+    <img src="{{ url_for('static', filename='Images/IterativeBinarySearch.png') }}" alt="binary search algorithm -  Iterative Appraoch">
     </div>
      <p>
        <strong>Recursive Binary Search Algorithm:</strong> It finds a target 
@@ -225,7 +244,7 @@
        it into two halves and recursively calling 
        itself until it finds the target element. 
     </p>
- <div style="overflow: auto;text-align: center;"> <img src="{{ url_for('static', filename='Images/RecursiveBinarySearch.png') }}"></div>
+ <div style="overflow: auto;text-align: center;"> <img src="{{ url_for('static', filename='Images/RecursiveBinarySearch.png') }}" alt="binary search algorithm -  Recursive Appraoch"></div>
    
 
    
@@ -268,9 +287,46 @@
      <p><strong>Recursive Implementation Uses Extra Space</strong> <br>
     The recursive version of binary search requires O(log n) extra space due to the recursion call stack, making it less space-efficient than the iterative approach.</p>
 
+    <h2>References</h2>
+<ul class="reference-list">
+  <li>
+    <a href="https://en.wikipedia.org/wiki/Binary_search"
+       target="_blank" rel="noopener noreferrer">
+       Wikipedia – Binary Search Algorithm
+    </a>
+  </li>
+
+  <li>
+    <a href="https://www.geeksforgeeks.org/dsa/binary-search/"
+       target="_blank" rel="noopener noreferrer">
+       GeeksForGeeks – Binary Search Explained
+    </a>
+  </li>
+
+  <li>
+    <a href="https://youtu.be/C2apEw9pgtw?si=ph9iO8uLIur5_jRB"
+       target="_blank" rel="noopener noreferrer">
+      Abdul Bari – Binary Search Algorithm
+    </a>
+  </li>
+
+  <li>
+    <a href="https://www.youtube.com/watch?v=0IAPZzGSbME"
+       target="_blank" rel="noopener noreferrer">
+       Abdul Bari – Binary Search (YouTube)
+    </a>
+  </li>
+</ul>
     <div class="footer">
        
     </div>
+    <div class="tags">
+  <span>#BinarySearch</span>
+  <span>#Algorithms</span>
+  <span>#DataStructures</span>
+  <span>#Python</span>
+  <span>#DSA</span>
+</div>
 <!-- Popup Modal -->
 <div id="gifModal" class="modal">
   <span class="close" onclick="closeModal()">&times;</span>
