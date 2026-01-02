@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Binary Search Visualization</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background: #f4f4f4;
+    text-align: center;
+  }
+  h1 {
+    margin-bottom: 20px;
+  }
+  .array-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+  .array-item {
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    margin: 5px;
+    border: 2px solid #333;
+    border-radius: 8px;
+    background-color: #fff;
+    transition: all 0.3s;
+    font-weight: bold;
+  }
+  .mid {
+    background-color: #ffcb05;
+    border-color: #ff9800;
+  }
+  .active-range {
+    background-color: #90caf9;
+    border-color: #42a5f5;
+  }
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+    background-color: #42a5f5;
+    color: white;
+  }
+  button:disabled {
+    background-color: #aaa;
+    cursor: not-allowed;
+  }
+</style>
+</head>
+<body>
+
+<h1>Binary Search Visualization</h1>
+
+<div class="array-container" id="arrayContainer"></div>
+
+<div>
+  <button id="prevBtn">Previous Step</button>
+  <button id="nextBtn">Next Step</button>
+</div>
+
+<p id="stepInfo"></p>
+
+<script>
+const arr = [2, 5, 8, 12, 16, 23, 38, 45, 56, 72, 91];
+const target = 23;
+
+// Precompute steps
+let steps = [];
+let left = 0, right = arr.length - 1;
+while(left <= right) {
+  let mid = left + Math.floor((right - left) / 2);
+  steps.push({left, mid, right});
+  if(arr[mid] === target) break;
+  else if(arr[mid] < target) left = mid + 1;
+  else right = mid - 1;
+}
+
+let currentStep = 0;
+
+const arrayContainer = document.getElementById('arrayContainer');
+const stepInfo = document.getElementById('stepInfo');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+
+function renderStep(stepIndex) {
+  arrayContainer.innerHTML = '';
+  const {left, mid, right} = steps[stepIndex];
+  
+  arr.forEach((num, idx) => {
+    const div = document.createElement('div');
+    div.className = 'array-item';
+    if(idx === mid) div.classList.add('mid');
+    else if(idx >= left && idx <= right) div.classList.add('active-range');
+    div.textContent = num;
+    arrayContainer.appendChild(div);
+  });
+  
+  stepInfo.textContent = `Step ${stepIndex + 1}: left=${left}, mid=${mid}, right=${right}, checking ${arr[mid]}`;
+  
+  prevBtn.disabled = stepIndex === 0;
+  nextBtn.disabled = stepIndex === steps.length - 1;
+}
+
+prevBtn.addEventListener('click', () => {
+  if(currentStep > 0) currentStep--;
+  renderStep(currentStep);
+});
+
+nextBtn.addEventListener('click', () => {
+  if(currentStep < steps.length - 1) currentStep++;
+  renderStep(currentStep);
+});
+
+// Initial render
+renderStep(currentStep);
+</script>
+
+</body>
+</html>

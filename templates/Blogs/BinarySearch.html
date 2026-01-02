@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Binary Search Algorithm</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            font-family: "Segoe UI", sans-serif;
+            background-color: #f7f9fc;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: #ffffff;
+            padding: 40px;
+            box-shadow: -1px 20px 20px 20px rgba(0, 0, 0, 0.08)
+        }
+
+        h1 {
+            text-align: center;
+            color: #4a5fd1;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            margin-top: 40px;
+            color: #333;
+            border-left: 5px solid #4a5fd1;
+            padding-left: 10px;
+        }
+
+        h3 {
+            margin-top: 25px;
+            color: #444;
+        }
+
+        p {
+            margin: 15px 0;
+        }
+
+        ul {
+            margin: 15px 0 15px 25px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .highlight {
+            background: #eef1ff;
+            padding: 12px;
+            border-left: 4px solid #4a5fd1;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .code {
+            background: #1e1e1e;
+            color: #e6e6e6;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: Consolas, monospace;
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        .note {
+            background: #fff7e6;
+            border-left: 4px solid #ffb703;
+            padding: 12px;
+            margin: 20px 0;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 14px;
+            color: #777;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 25px;
+            }
+        }
+    </style>
+    <style>
+/* Modal container */
+.modal {
+  display: none; /* hidden by default */
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.8);
+}
+
+/* Modal image */
+.modal-content {
+  margin: 10% auto;
+  display: block;
+  max-width: 80%;
+  max-height: 80%;
+  border: 5px solid #fff;
+  border-radius: 10px;
+}
+
+/* Close button */
+.close {
+  position: absolute;
+  top: 30px;
+  right: 50px;
+  color: white;
+  font-size: 40px;
+  font-weight: bold;
+  cursor: pointer;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+    <h1>Binary Search Algorithm</h1>
+
+    <p>
+        The <strong>Binary Search Algorithm (BSA) </strong>is a method for finding an element in a sorted array. It uses the <strong>divide-and-conquer</strong>  principle, 
+        repeatedly splitting the search space in half by comparing the target element with the middle element until the target is 
+        found or the search space is empty. It is also known as <strong>half-interval search</strong>.
+    </p>
+
+    <h2>Prerequisites for Binary Search</h2>
+    <ul>
+        <li>The dataset must be sorted either in ascending or descending order.</li>
+        <li>The data structure should support O(1) access to elements.</li>
+        <li>The data structure should allow for comparison.</li>
+    </ul>
+
+    <h2>Step-by-Step Algorithm</h2>
+
+    <div class="highlight">
+        <p><strong>Key</strong> → Target element</p>
+        <p><strong>Mid</strong> → Middle index of the search space</p>
+    </div>
+
+    <ul>
+        <li>Divide the search space into two halves by mid.</li>
+        <li>Compare the mid element of the search space with the key.</li>
+          <p> 1. If the key == mid element, then the process is terminated.</p>
+          <p> 2. If the key < mid element, then the left half is the next search space.</p>
+          <p> 3. If the key > mid element, then the right half is the next search space.</p>       
+        <li>Repeat until the key is found or the search space becomes empty.</li>
+    </ul>
+
+    <h2>How to Calculate the Middle Index</h2>
+
+    <h3>Not Recommended</h3>
+    <div class="code">
+        mid = (left index + right index) / 2
+    </div>
+    <p>
+        If the left index or right index is a very large value 
+        (close to the maximum integer limit), then their sum 
+        (left index + right index) can overflow, 
+        leading to incorrect results or runtime errors. 
+        This issue is common in languages like C, C++, 
+        and Java, where integers have fixed-size limits.
+    </p>
+
+    <h3>Recommended</h3>
+    <div class="code">
+        mid = left + (right - left) / 2
+    </div>
+    <p>
+        right index – left index is always a small 
+        and safe number. It prevents integer overflow 
+         produces the same correct middle index</p>
+
+    <h2>Binary Search Algorithm</h2>
+    <div style="overflow: auto;">
+    <img src="{{ url_for('static', filename='Images/BinarySearchAlgoReprentation.png') }}">
+    </div>
+
+    <div class="box">
+    <h2>Binary Search Visualization</h2>
+
+    <input type="text" id="numbers" placeholder="Enter numbers (e.g. 2,4,8,10,13,15,20)">
+    <input type="number" id="target" placeholder="Enter target value">
+
+    <button onclick="generateGif()">Generate GIF</button>
+
+</div>
+    <h2>Binary Search Implementations</h2>
+    <p>The binary search algorithm can be implemented by using the two methods given below:</p>
+    <ul>
+        <li><strong>Iterative Binary Search Algorithm</strong></li>
+        <li><strong>Recursive Binary Search Algorithm</strong></li>
+    </ul>
+
+    <p>
+       <strong>Iterative Binary Search Algorithm:</strong> It involves a 
+       loop to keep dividing the search space 
+       in half until the target value is found 
+       or the search space is empty.
+    </p>
+    <div style="overflow: auto;text-align: center;">
+    <img src="{{ url_for('static', filename='Images/IterativeBinarySearch.png') }}">
+    </div>
+     <p>
+       <strong>Recursive Binary Search Algorithm:</strong> It finds a target 
+       element in the searching space by splitting 
+       it into two halves and recursively calling 
+       itself until it finds the target element. 
+    </p>
+ <div style="overflow: auto;text-align: center;"> <img src="{{ url_for('static', filename='Images/RecursiveBinarySearch.png') }}"></div>
+   
+
+   
+    <h2>Time Complexity of Binary Search</h2>
+    <p>
+        The binary search algorithm divides 
+        the search space into two halves until the 
+        key element is found or the search space becomes empty. 
+        Due to this divide-and-conquer principle, 
+        binary search has a logarithmic time complexity. 
+        That’s why it is also called a <strong>logarithmic search</strong></p>
+
+    <ul>
+        <li><strong>Best Case:</strong> O(1) -> when the target is at the middle.</li>
+        <li><strong>Average Case:</strong> O(log n) -> The key element is randomly present in the search space</li>
+        <li><strong>Worst Case:</strong> O(log n) -> The key element is found only after the search space has been reduced to one element</li>
+    </ul>
+
+    <h2>Space Complexity of Binary Search</h2>
+    <p>Space complexity differs slightly depending on the implementation.</p>
+    <ul>
+        <li><strong>Iterative Approach:</strong> O(1) — uses constant extra space (fixed number of variables like left, right and mid).</li>
+        <li><strong>Recursive Approach:</strong> O(log n) — due to recursive call stack.</li>
+    </ul>
+
+    <h2>Drawbacks of Binary Search</h2>
+    <p><strong>Requires a Sorted Array </strong> <br>
+    Binary search works only on sorted data. If the array is unsorted, it must be sorted first, which itself takes O(n log n) time—sometimes making binary search inefficient for one-time searches.
+    </p>
+
+    <p><strong>Not Suitable for Linked Lists</strong> <br>
+    Binary search requires random access to elements (direct indexing). Since linked lists do not support random access, binary search is inefficient or impractical for such data structures.</p>
+
+     <p><strong>Overhead for Small Datasets </strong> <br>
+   For small arrays, the overhead of calculating midpoints and maintaining indices may make binary search slower than linear search, which is simpler and faster in such cases.</p>
+
+     <p><strong>Data Must Remain Static</strong> <br>
+    If elements are frequently inserted or deleted, maintaining the sorted order becomes costly. In such dynamic datasets, binary search may not be the best choice.</p>
+
+     <p><strong>Recursive Implementation Uses Extra Space</strong> <br>
+    The recursive version of binary search requires O(log n) extra space due to the recursion call stack, making it less space-efficient than the iterative approach.</p>
+
+    <div class="footer">
+       
+    </div>
+<!-- Popup Modal -->
+<div id="gifModal" class="modal">
+  <span class="close" onclick="closeModal()">&times;</span>
+  <img class="modal-content" id="modalGif">
+</div>
+</div>
+<script>
+
+function generateGif() {
+    const numbers = document.getElementById("numbers").value;        
+    const target = document.getElementById("target").value;  
+
+    
+    if (!numbers) {
+        alert("Please enter the numbers array!");
+        return;
+    }
+
+    if (!target) {
+        alert("Please enter the target value!");
+        return;
+    }
+    
+
+    const numArray = numbers.split(",").map(n => n.trim());
+    if (!numArray.every(n => !isNaN(n))) {
+        alert("Please enter only numbers separated by commas!");
+        return;
+    }
+
+    if (isNaN(target)) {
+        alert("Target must be a number!");
+        return;
+    }
+    
+    fetch("/generate-gif", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            numbers: numbers,
+            target: target
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+       // Set the GIF src in the modal
+        const modalImg = document.getElementById("modalGif");
+        modalImg.src = data.gif_url;
+
+        // Show the modal
+        document.getElementById("gifModal").style.display = "block";
+    });
+}
+
+function closeModal() {
+    document.getElementById("gifModal").style.display = "none";
+}
+
+window.onclick = function(event) {
+    const modal = document.getElementById("gifModal");
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+</script>
+</script>
+</body>
+</html>
