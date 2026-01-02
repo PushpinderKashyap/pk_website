@@ -18,20 +18,27 @@ def dummyvisual():
 
 @app.route("/generate-gif", methods=["POST"])
 def generate_gif():
-    data = request.get_json()
+    try:
+        data = request.get_json()
 
-    numbers = data["numbers"]
-    target = int(data["target"])
+        numbers = data["numbers"]
+        target = int(data["target"])
 
-    arr = list(map(int, numbers.split(",")))
-    arr.sort()
+        arr = list(map(int, numbers.split(",")))
+        arr.sort()
 
 
-    generate_binary_search_gif(arr, target)
+        generate_binary_search_gif(arr, target)
+        return jsonify({
+            "success": True,
+            "gif_url": "/static/gifs/binary_search_animation.gif"
+        })
 
-    return jsonify({
-        "gif_url": "/static/gifs/binary_search_animation.gif"
-    })
+    except Exception as e:
+        return jsonify({
+            "success": False,
+            "gif_url": ""
+        })
 
 
 def binary_search_iterative(arr,key):
