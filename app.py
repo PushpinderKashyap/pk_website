@@ -7,14 +7,20 @@ app = Flask("Local Website")
 def home():
     return render_template("start.html")
 
-@app.route("/Blogs/BinarySearch")
+@app.route("/BinarySearch")
 def binarySearch():
     return render_template("Blogs/BinarySearch.html")
+
+# @app.route("/BinarySearch")
+# def binarySearch():
+#     return render_template("Blogs/BinarySearch.html")
+
 
 
 @app.route("/Blogs/Visual")
 def dummyvisual():
     return render_template("search_visual.html")
+
 
 @app.route("/generate-gif", methods=["POST"])
 def generate_gif():
