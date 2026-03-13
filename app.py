@@ -1,5 +1,7 @@
-from flask import Flask, render_template, request,jsonify
+from flask import Flask, render_template, request,jsonify,send_file
 from visual import generate_binary_search_gif
+from PyPDF2 import PdfMerger
+import io
 
 app = Flask("Local Website") 
 
@@ -11,15 +13,36 @@ def home():
 def binarySearch():
     return render_template("Blogs/BinarySearch.html")
 
-# @app.route("/BinarySearch")
-# def binarySearch():
-#     return render_template("Blogs/BinarySearch.html")
+@app.route("/MergeFiles")
+def Merge():
+    return render_template("MergeFiles.html")
 
 
 
-@app.route("/Blogs/Visual")
-def dummyvisual():
-    return render_template("search_visual.html")
+@app.route('/merge', methods=['POST'])
+def merge_pdfs():
+    files = request.files.getlist('pdfs')
+    if len(files) < 2:
+        return "Please upload at least 2 PDFs!"
+
+    merger = PdfMerger()
+    for f in files:
+        merger.append(f)  # Append file-like object directly
+
+    # Create an in-memory bytes buffer
+    merged_pdf = io.BytesIO()
+    merger.write(merged_pdf)
+    merger.close()
+    merged_pdf.seek(0)  # Move to the beginning
+
+    # Send merged PDF directly without saving
+    return send_file(
+        merged_pdf,
+        as_attachment=True,
+        download_name="merged.pdf",
+        mimetype='application/pdf'
+    )
+
 
 
 @app.route("/generate-gif", methods=["POST"])
